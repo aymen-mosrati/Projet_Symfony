@@ -1,0 +1,163 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!{% endblock %}
+
+{% block body %}
+
+        <!--====== App Content ======-->
+        <div class="app-content">
+            <!--====== Section 2 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Intro ======-->
+                <div class="section__intro u-s-m-b-60">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section__text-wrap">
+                                    <h1 class="section__heading u-c-secondary">SHOPPING CART</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Intro ======-->
+
+     <div class="section__content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 u-s-m-b-30">
+                                <div class="table-responsive">
+                                    <table class="table-p">
+                                        <tbody>
+                                               <!--====== Row ======-->
+                                                {% for element in dataPanier %}                       
+                                            <tr>
+                                                <td>
+                                                    <div class="table-p__box">
+                                                        <div class="table-p__img-wrap">
+                                                            <img class="u-img-fluid" src="{{ vich_uploader_asset(element.produit, 'imageFile') }}" alt=""></div>
+                                                        <div class="table-p__info">
+                                                            <span class="table-p__name">
+                                                                <a href="product-detail.html">{{ element.produit.name }}</a></span>
+                                                            <ul class="table-p__variant-list">
+                                                                <li>
+                                                                    <span>{{ element.produit.category }}</span></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="table-p__price">{{ element.produit.price }} DT</span></td>
+                                                <td>
+                                                    <div class="table-p__input-counter-wrap">
+                                                        <!--====== Input Counter ======-->
+                                                        <div class="input-counter">
+                                                            <span class="input-counter__minus fas fa-minus"></span>
+                                                            <input class="input-counter__text input-counter--text-primary-style" type="text" value="1" data-min="1" data-max="1000">
+                                                            <span class="input-counter__plus fas fa-plus"></span></div>
+                                                        <!--====== End - Input Counter ======-->
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="table-p__del-wrap">
+
+                                                        <a class="far fa-trash-alt table-p__delete-link" href="{{path("cart_remove", {id: element.produit.id})}}" ></a></div>
+                                                </td>
+                                            </tr>
+                                              {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">Votre panier est vide</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+             <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td class="text-end">{{ total }} DT</td>
+                <td>
+                <a class="btn btn-danger far fa-trash-alt " href="{{path("cart_delete_all")}}" ></a>
+                
+                </td> 
+            </tr>
+             <tr>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             
+             <td>
+             <form action="/checkout" method="POST" >
+                <button type="submit" class="btn btn-primary btn-lg">Checkout</button>
+             </form>
+            </td>
+            
+             </tr>
+        </tfoot>
+    </table>
+
+
+{# 
+    <!--====== Section 1 ======-->
+            <div class="u-s-p-y-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="breadcrumb">
+                            <div class="breadcrumb__wrap">
+                                <ul class="breadcrumb__list">
+                                    <li class="has-separator">
+
+                                        <a href="index.html">Home</a></li>
+                                    <li class="is-marked">
+
+                                        <a href="cart.html">Cart</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section 1 ======--> #}
+            
+         <!--====== End - Row ======-->
+
+          {#}  {% for element in dataPanier %}
+                <tr>
+                    <td>{{ element.produit.name }}</td>
+                    <td class="text-end">{{ element.produit.price }} €</td>
+                    <td>{{ element.quantite }}</td>
+                    <td class="text-end">{{ element.quantite * element.produit.price }} €</td>
+                    <td>
+                        <a href="{{path("cart_add", {id: element.produit.id})}}" class="btn btn-success">
+                            <i class="bi bi-cart-plus"></i>
+                        </a>
+                        <a href="{{path("cart_remove", {id: element.produit.id})}}" class="btn btn-warning">
+                            <i class="bi bi-cart-dash"></i>
+                        </a>
+                        <a href="{{path("cart_delete", {id: element.produit.id})}}" class="btn btn-danger">
+                            <i class="bi bi-cart-x"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">Votre panier est vide</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td class="text-end">{{ total }} DT</td>
+                <td>
+                    <a href="{{path("cart_delete_all")}}" class="btn btn-danger">
+                        <i class="bi bi-cart-x"></i>
+                    </a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    #}
+{% endblock %}

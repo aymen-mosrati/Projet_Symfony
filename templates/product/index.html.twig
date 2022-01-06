@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+ <section class="bg-light p-3">
+        <!--====== Section Intro ======-->
+                <div class="section__intro u-s-m-b-60">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section__text-wrap">
+                                    <h1 class="section__heading u-c-secondary">PRODUCTS</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Intro ======-->
+    </section>
+
+  
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                       
+                                <div class="filter__grid-wrapper u-s-m-t-30">
+                                    <div class="row">
+                                        {% for product in products %}
+                                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item headphone">
+                                            <div class="product-o product-o--hover-on product-o--radius">
+                                                <div class="product-o__wrap">
+
+                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+
+                                                        <img class="aspect__img" src="{{ vich_uploader_asset(product, 'imageFile') }}" alt=""></a>
+                                                    <div class="product-o__action-wrap">
+                                                        <ul class="product-o__action-list">
+                                                            <li>
+
+                                                                <a href="{{ path('product_show', {'id': product.id}) }}" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
+                                                            <li>
+
+                                                                <a href="{{path("cart_add", {id: product.id})}}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
+                                                            
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <span class="product-o__category">
+
+                                                    <a href="shop-side-version-2.html">{{ product.category }}</a></span>
+
+                                                <span class="product-o__name">
+
+                                                    <a href="{{ path('product_show', {'id': product.id}) }}">{{ product.name }}</a>
+                                                </span>
+
+                                                <span class="product-o__price" class="pd-detail__price">{{ product.price }} DT</span>
+
+                                            </div>
+                                        
+                                        </div>
+                                        {% endfor %}                                      
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+    {% endblock %}
